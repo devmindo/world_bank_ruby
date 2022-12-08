@@ -1,25 +1,22 @@
 module WorldBank
-
   class Source
-
     attr_reader :raw, :id, :name, :description, :url, :type
 
     def self.all
-      find('all')
+      find("all")
     end
 
     def self.find(id)
-      WorldBank::ParamQuery.new('sources', id, self)
+      WorldBank::ParamQuery.new("sources", id, self)
     end
 
-    def initialize(values={})
+    def initialize(values = {})
       @raw = values
-      @id = values['id']
-      @name = values['name']
-      @description = values['description']
-      @url = values['url']
-      @type = 'sources'
+      @id = values["id"]
+      @name = values["name"]
+      @description = values["description"]
+      @url = values["url"]
+      @type = "sources"
     end
   end
-
 end

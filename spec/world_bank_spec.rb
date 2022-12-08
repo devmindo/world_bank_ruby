@@ -1,9 +1,9 @@
-require 'helper'
+require "helper"
 
 describe WorldBank do
-  context 'client' do
+  context "client" do
     it "is an instance of WorldBank::Client" do
-      WorldBank.client.should be_a WorldBank::Client
+      expect(WorldBank.client).to be_a WorldBank::Client
     end
   end
 end

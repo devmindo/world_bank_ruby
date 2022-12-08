@@ -1,34 +1,31 @@
-require 'helper'
+require "helper"
 
 describe WorldBank::Topic do
-
-  context 'find' do
-
-    it 'returns an instance of Topic' do
-      stub_get('topics/6?format=json').
-        to_return(:status => 200, :body => fixture('topic_6.json'))
+  context "find" do
+    it "returns an instance of Topic" do
+      stub_get("topics/6?format=json")
+        .to_return(status: 200, headers: {"Content-Type" => "application/json"}, body: fixture("topic_6.json"))
       @environment = WorldBank::Topic.find(6).fetch
-      a_get('topics/6?format=json').should have_been_made
-      @environment.should be_a WorldBank::Topic
+      expect(a_get("topics/6?format=json")).to have_been_made
+      expect(@environment).to be_a WorldBank::Topic
     end
 
-    context 'returned topic has' do
-
+    context "returned topic has" do
       before do
-        stub_get('topics/6?format=json').
-          to_return(:status => 200, :body => fixture('topic_6.json'))
+        stub_get("topics/6?format=json")
+          .to_return(status: 200, headers: {"Content-Type" => "application/json"}, body: fixture("topic_6.json"))
         @environment = WorldBank::Topic.find(6).fetch
       end
-      it 'name' do
-        @environment.name.should eql 'Environment '
+      it "name" do
+        expect(@environment.name).to eql "Environment"
       end
 
-      it 'id' do
-        @environment.id.should eql '6'
+      it "id" do
+        expect(@environment.id).to eql "6"
       end
 
-      it 'note' do
-        @environment.note[0..20].should eql "Natural and man-made "
+      it "note" do
+        expect(@environment.note[0..20]).to eql "Natural and man-made "
       end
     end
   end

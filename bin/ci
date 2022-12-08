@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+echo "[ bin/ci ] Running tests"
+bundle exec rspec
+
+echo "[ bin/ci ] Checking Ruby Standard Style"
+echo "[ bin/ci ] (https://github.com/testdouble/standard)"
+bundle exec standardrb
+
+echo "[ bin/ci ] Analyzing Ruby gems for"
+echo "[ bin/ci ] security vulnerabilities"
+bundle exec bundle audit check --update
+
+echo "[ bin/ci ] Done"

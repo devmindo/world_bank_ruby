@@ -1,25 +1,25 @@
-require 'helper'
+require "helper"
 
 describe WorldBank::LendingType do
-  context 'find' do
-    it 'returns a LendingType' do
-      stub_get('lendingTypes/idb?format=json').
-        to_return(:status => 200, :body => fixture('lending_type_idb.json'))
-      @blend = WorldBank::LendingType.find('idb').fetch
-      a_get('lendingTypes/idb?format=json').should have_been_made
-      @blend.should be_a WorldBank::LendingType
+  context "find" do
+    it "returns a LendingType" do
+      stub_get("lendingTypes/idb?format=json")
+        .to_return(status: 200, headers: {"Content-Type" => "application/json"}, body: fixture("lending_type_idb.json"))
+      @blend = WorldBank::LendingType.find("idb").fetch
+      expect(a_get("lendingTypes/idb?format=json")).to have_been_made
+      expect(@blend).to be_a WorldBank::LendingType
     end
-    context 'returned LendingType has' do
+    context "returned LendingType has" do
       before do
-        stub_get('lendingTypes/idb?format=json').
-          to_return(:status => 200, :body => fixture('lending_type_idb.json'))
-        @blend = WorldBank::LendingType.find('idb').fetch
+        stub_get("lendingTypes/idb?format=json")
+          .to_return(status: 200, headers: {"Content-Type" => "application/json"}, body: fixture("lending_type_idb.json"))
+        @blend = WorldBank::LendingType.find("idb").fetch
       end
-      it 'an id' do
-        @blend.id.should eql 'IDB'
+      it "an id" do
+        expect(@blend.id).to eql "IDB"
       end
-      it 'a name' do
-        @blend.name.should eql 'Blend'
+      it "a name" do
+        expect(@blend.name).to eql "Blend"
       end
     end
   end

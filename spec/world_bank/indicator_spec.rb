@@ -1,37 +1,37 @@
-require 'helper'
+require "helper"
 
 describe WorldBank::Indicator do
-  context 'find' do
-    it 'returns a WorldBank::Indicator' do
-      stub_get('indicators/AG.AGR.TRAC.NO?format=json').
-        to_return(:status => 200, :body => fixture('indicators_tractors.json'))
-      tractors = WorldBank::Indicator.find('AG.AGR.TRAC.NO').fetch
-      a_get('indicators/AG.AGR.TRAC.NO?format=json').should have_been_made
-      tractors.should be_a WorldBank::Indicator
+  context "find" do
+    it "returns a WorldBank::Indicator" do
+      stub_get("indicators/AG.AGR.TRAC.NO?format=json")
+        .to_return(status: 200, headers: {"Content-Type" => "application/json"}, body: fixture("indicators_tractors.json"))
+      tractors = WorldBank::Indicator.find("AG.AGR.TRAC.NO").fetch
+      expect(a_get("indicators/AG.AGR.TRAC.NO?format=json")).to have_been_made
+      expect(tractors).to be_a WorldBank::Indicator
     end
-    context 'returned Indicator has' do
+    context "returned Indicator has" do
       before do
-        stub_get('indicators/AG.AGR.TRAC.NO?format=json').
-          to_return(:status => 200, :body => fixture('indicators_tractors.json'))
-        @tractors = WorldBank::Indicator.find('AG.AGR.TRAC.NO').fetch
+        stub_get("indicators/AG.AGR.TRAC.NO?format=json")
+          .to_return(status: 200, headers: {"Content-Type" => "application/json"}, body: fixture("indicators_tractors.json"))
+        @tractors = WorldBank::Indicator.find("AG.AGR.TRAC.NO").fetch
       end
-      it 'an id' do
-        @tractors.id.should eql 'AG.AGR.TRAC.NO'
+      it "an id" do
+        expect(@tractors.id).to eql "AG.AGR.TRAC.NO"
       end
-      it 'a name' do
-        @tractors.name.should eql 'Agricultural machinery, tractors'
+      it "a name" do
+        expect(@tractors.name).to eql "Agricultural machinery, tractors"
       end
-      it 'a source' do
-        @tractors.source.should be_a WorldBank::Source
+      it "a source" do
+        expect(@tractors.source).to be_a WorldBank::Source
       end
-      it 'a note' do
-        @tractors.note[0..19].should eql 'Agricultural machine'
+      it "a note" do
+        expect(@tractors.note[0..19]).to eql "Agricultural machine"
       end
-      it 'an organization' do
-        @tractors.organization.should eql 'Food and Agriculture Organization, electronic files and web site.'
+      it "an organization" do
+        expect(@tractors.organization).to eql "Food and Agriculture Organization, electronic files and web site."
       end
-      it 'many topics' do
-        @tractors.topics[0].should be_a WorldBank::Topic
+      it "many topics" do
+        expect(@tractors.topics[0]).to be_a WorldBank::Topic
       end
     end
   end

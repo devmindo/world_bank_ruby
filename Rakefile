@@ -1,16 +1,10 @@
-require 'bundler'
-Bundler::GemHelper.install_tasks
+# frozen_string_literal: true
 
-require 'rspec/core/rake_task'
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec
-task :test => :spec
+require "standard/rake"
 
-require 'yard'
-namespace :doc do
-  YARD::Rake::YardocTask.new do |task|
-    task.files   = ['LICENSE.md', 'lib/**/*.rb']
-    task.options = ['--markup', 'markdown']
-  end
-end
+task default: %i[spec standard]
